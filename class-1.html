@@ -1,0 +1,125 @@
+<html>
+    <head>
+        <title>First Vue App</title>
+        <style>
+            .clssucess{
+                color: green;
+            }
+
+            .clsfail{
+                color: red;
+            }
+
+            .textcolor{
+                color: black;
+            }
+
+            .textbackground{
+                background-color: red;
+            }
+
+            h1{
+                color: blueviolet;
+            }
+
+        </style>
+    </head>
+    <body>
+        <div id="app">
+            Welcome All..
+
+            <h1>Interpolation</h1>
+
+            <h2>{{name}}</h2>
+            <b>{{name == "BManisha" ? 'Hola' : 'Chao'}}</b>
+
+
+            <h1>Directives</h1>
+            
+            <h3><span v-text="name"></span></h3>
+
+            <h3><span v-once>{{name}}</span></h3>
+
+            <span>{{sampleHtml}}</span>
+
+            <span v-html="sampleHtml"></span>
+
+            <a v-bind:href="myUrl">My Profile</a>
+
+
+            <h1>Two-Way Binding</h1>
+
+            <input v-model="name" placeholder="Enter something" />
+
+            <select v-model="choice">
+                <option >Apple</option>
+                <option >banana</option>
+                <option >someX</option>
+                <option >someY</option>
+            </select>
+
+            You chocen : {{choice}}
+
+            <h1>Conditions</h1>
+            <b v-if="isTrue">This is True</b>
+            <b v-else>This is False</b>
+
+            <h5 v-show="isTrue">I'm here tooo</h5>
+
+            <h1>Loops</h1>
+            
+            <ul>
+                <li v-for="item in sampleList">{{item}}</li>
+            </ul>
+
+            <b v-for="(todo, index) in myTodos">{{index}} - {{todo.id}} - {{todo.title}} <br/></b>
+
+            <h1>Styles</h1>
+
+            <a v-bind:href="myUrl">My Profile</a>
+
+            <h2 style="color: red;">This is in Red color</h2>
+
+            <h2 :style="{color: myColor}">This is in {{myColor}}</h2>
+
+            <h2 :class="statustext == 'sucess' ? 'clssucess' : 'clsfail'">This is a {{statustext}} Message</h2>
+
+            <h3 :class="[clr, bgclr]">This is an example</h3>
+
+            <h3 :class="[{'clr' : isTrue}, bgclr]">This is an example</h3>
+
+        </div>
+    </body>
+    <script src="https://unpkg.com/vue"></script>
+    <script>
+        new Vue({
+            el: "#app",
+            data (){
+                return {
+                    name: "BManisha",
+                    sampleHtml: "<i>I'm here</i>",
+                    myUrl: "http://babymanisha.com",
+                    choice: "someY",
+                    isTrue: true,
+                    sampleList: ["someX", "someY", "someZ"],
+                    myTodos: [
+                        {id: 1,
+                        title: "Wake Up"},
+                        {id: 2,
+                        title: "Ready"},
+                        {id: 3,
+                        title: "Do work"},
+                        {id: 4,
+                        title: "Eat"},
+                        {id: 5,
+                        title: "Sleep Again"},
+                    ],
+                    myColor: "Green",
+                    statustext: "sucess",
+                    clr: "textcolor",
+                    bgclr: 'textbackground'
+                }
+            }
+       })
+    </script>
+</html>
