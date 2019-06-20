@@ -1,0 +1,75 @@
+<html>
+    <head>
+        <title>Second Vue App</title>
+        <style>
+
+        </style>
+    </head>
+    <body>
+        <div id="app">
+            <h1>{{count}}</h1>
+
+            <a @click.once.prevent="sampleFun" href="http://babymanisha.com">Visit my Website</a>
+
+            <button @click.once="count++">Click Me</button>
+
+            <button v-on:click="sampleFun($event)">Click Me</button>
+
+            <input v-on:keyup.enter="sampleFun('Enter')" v-model="name" />
+
+            <input v-on:keyup.esc="sampleFun('Esc')" v-model="name" />
+
+            <input v-on:keyup.tab="sampleFun('Tab')" v-model="name" />
+
+
+            <h1>{{name | uppercase | prefix('Ms.')}}</h1>
+
+
+        </div>
+    </body>
+    <script src="https://unpkg.com/vue"></script>
+    <script>
+        new Vue({
+            el: "#app",
+            data (){
+                return {
+                    name: "manisha",
+                    count: 0,
+                    education: "MCA"
+                }
+            },
+            beforeCreate() {
+                console.log("Vue Before Created!!")
+            },
+            created() {
+                console.log("Vue Created!!");
+            },
+            beforeMount() {
+                console.log("Vue Before Mounted");
+            },
+            mounted() {
+                console.log("Vue MOunted!!");
+            },
+            beforeDestroy() {
+                console.log("Vue before Destory!!");
+            },
+            destroyed() {
+                console.log("Vue Destroyed!!");
+            },
+            methods: {
+                sampleFun(ev){
+                    console.log(this.education);
+                    alert("Triggered - "+ ev);
+                }
+            },
+            filters: {
+                uppercase(n) {
+                    return n.toUpperCase();
+                },
+                prefix(n, pref) {
+                    return pref + n;
+                }
+            }
+       });
+    </script>
+</html>
