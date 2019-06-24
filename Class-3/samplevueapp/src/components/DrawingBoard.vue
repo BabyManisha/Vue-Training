@@ -1,0 +1,86 @@
+<template>
+    <div>
+        <h1>!!Welcome to My - Drawing Board!!</h1>
+        <div class="playground colors">
+            <button @click="random = !random"><b>Random</b></button>
+            <button @click="fillBoard()"><b>Fill Random</b></button>
+            <div v-for="c in colors" class="box" :class="c == selectedColor ? 'selected' : ''" :key="c"
+            :style="{'background-color': c}" @click="random = false;selectedColor = c">
+            </div>
+            <button @click="clickPencil = !clickPencil"><b>Pencil Type - <b :style="{'color': selectedColor}">{{ clickPencil ? 'Click' : 'Hover'}}</b></b></button>
+            <button @click="fillBoard(true)"><b>Clear</b></button>
+        </div>
+
+        <div class="playground">
+            <template v-if="clickPencil">
+                <div v-for="n in 40*35" class="box dbox" :id="'box-'+n" @click="changeColor(n)" :key="n"></div>
+            </template>
+            <template v-else>
+                <div v-for="n in 40*35" class="box dbox" :id="'box-'+n" @mouseover="changeColor(n)" :key="n"></div>
+            </template>
+        </div>
+    </div>
+</template>
+
+<script>
+export default {
+    name: 'DrawingBoard',
+    data (){
+        return{
+            colors: ['red', 'green', 'blue', 'black', 'orange', 'purple', 'skyblue', 'tomato', 'gray', 'violet'],
+            selectedColor: null,
+            random: true,
+            clickPencil: false
+        }
+    },
+    methods: {
+        changeColor(n){
+            if(this.random){
+                this.selectedColor = this.colors[Math.floor(Math.random()*this.colors.length)];
+            }
+            document.getElementById('box-'+n).style.backgroundColor = this.selectedColor;
+        },
+        fillBoard(clear){
+            [...document.getElementsByClassName('dbox')].forEach(element => {
+                element.style.backgroundColor = clear ? 'white' : this.colors[Math.floor(Math.random()*this.colors.length)];
+            });
+        }
+    }
+}
+</script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped>
+  .box{
+    width: 30px;
+    height: 30px;
+    border: 1px solid black;
+    cursor: pointer;
+  }
+  .colors .box{
+    border: 5px solid white;
+  }
+  .playground{
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 1600px;
+    margin: auto;
+    margin-bottom: 50px;
+    border: 5px solid black;
+  }
+  .colors{
+    justify-content: center;
+    border: 0px;
+  }
+  h1{
+    display: flex;
+    justify-content: center;
+    color: red;
+  }
+  button{
+    cursor: pointer;
+  }
+  .box.selected{
+    border: 5px solid black;
+  }
+</style>

@@ -1,0 +1,99 @@
+<html>
+    <head>
+        <title>Third Vue App</title>
+        <style>
+
+        </style>
+    </head>
+    <body>
+        <div id="app">
+            <h1 v-custom>{{name}}</h1>
+            
+            <input v-model="name" />
+
+            <br/>
+
+            <input v-model="email" placeholder="Email"/>
+            <input v-model="password" placeholder="Password"/>
+
+            <button @click="validateForm()">Submit / Validate</button>
+
+            <b v-if="checkError">Valid Input</b>
+            <b v-else>Please enter email and password</b>
+
+            <hello-world :name="name">
+                <b>Good Afternoon!!</b>
+                <b slot="qstn">How are you??</b>
+            </hello-world>
+
+            <hello-world :name="name">
+                <b>Good Monring!!</b>
+            </hello-world>
+
+            <hello-world/>
+
+            <br/>
+            <Samplecomponent></Samplecomponent>
+
+        </div>
+    </body>
+    <script src="https://unpkg.com/vue"></script>
+    <script>
+        Vue.component('hello-world', {
+            props: {
+                name: {
+                    type: [String, Object],
+                    default: "MyName"
+                }
+            },
+            template: "<h1><slot></slot>Hello {{name}} <slot name='qstn'></slot></h1>"
+        });
+        const Samplecomponent = {
+            template: '<i>This is a Sample Components</i>'
+        };
+        new Vue({
+            el: "#app",
+            data (){
+                return {
+                   name: 'Manisha',
+                   fullname: {
+                       fname: 'abc',
+                       lname: 'xyz'
+                   },
+                   age: 100,
+                   email: '',
+                   password: ''
+                }
+            },
+            components: {
+                Samplecomponent
+            },
+            methods: {
+                validateForm(){
+                    if(this.email && this.password){
+                        alert("Valid");
+                    }else{
+                        alert("In valid");
+                    }
+                }
+            },
+            watch: {
+                name(newval, oldval){
+                    console.log(oldval + " -> " +newval);
+                }
+            },
+            computed: {
+                checkError(){
+                    return this.email && this.password
+                }
+            },
+            directives: {
+                custom: {
+                    inserted(el) {
+                        console.log("Inserted Into its parent Node!!");
+                    }
+                }
+            }
+       });
+    </script>
+</html>
